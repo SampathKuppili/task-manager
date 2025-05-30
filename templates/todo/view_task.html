@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .label{
+    font-weight: bold;
+  }
+</style>
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <div class="d-flex justify-content-between">
+      <h1>Branch Details</h1>
+      <div >
+        <a href="" class="btn btn-primary">Edit</a>
+      </div>
+    </div>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href={% url 'dashboard' %}>Master</a></li>
+        <li class="breadcrumb-item">Branch</li>
+        <li class="breadcrumb-item active">Branch List</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <div class="col-lg-12">
+
+    <div class="card p-6">
+      <div class="card-body p-4">
+
+                  <div class="row p-1">
+                    <div class="col-lg-3 col-md-4 label ">Taks Name : </div>
+                    <div class="col-lg-9 col-md-8">{{views.task_name}}</div>
+                  </div>
+
+                  <div class="row p-1">
+                    <div class="col-lg-3 col-md-4 label">Description : </div>
+                    <div class="col-lg-9 col-md-8">{{views.description | safe}}</div>
+                  </div>
+
+                  <div class="row p-1">
+                    <div class="col-lg-3 col-md-4 label ">Priority : </div>
+                    <div class="col-lg-9 col-md-8">{{views.task_priority}}</div>
+                  </div>
+
+                  
+                </div>
+              </div>
+            </div>
+            <div class="text-end ">
+              <a href={% url 'dashboard' %} class="btn btn-outline-warning">Back</a>
+              <a href={% url 'dashboard' %} class="btn btn-outline-primary">Dashboard</a>
+        
+            </div>
+          </div>
+            
+        </main>
+        {% endblock %}

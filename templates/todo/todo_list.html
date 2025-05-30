@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main id="main" class="main">
+
+  <div>{% if messages %}
+    {% for msg in messages %}
+
+    <div id="custom-alert" class="alert alert-success alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert" style="padding-right: 1rem;">
+      <div>Hey! {{ msg }}</div>
+      <button type="button" class="btn-close ms-3" data-bs-dismiss="alert" aria-label="Close" style="background: none; border: none; font-size: 1.5rem; line-height: 1;">
+        &times;
+      </button>
+    </div>
+
+    {% endfor %}
+    {% endif %}</div>
+
+  <div class="pagetitle">
+    <div class="d-flex justify-content-between">
+      <h1>Task List</h1>
+      <div >
+        <a href="{% url 'addTask' %}" class="btn btn-primary">Add Task</a>
+      </div>
+    </div>
+    
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href={% url 'dashboard' %}>Task Manager</a></li>
+        <li class="breadcrumb-item active">Task List</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <div class="col-lg-12">
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Task List</h5>      
+        <!-- Table with stripped rows -->
+        <table class="table datatable table-striped">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Task Name</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Status</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for list in lists %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{list.task_name}}</td>
+                <td>
+                  {% if list.task_priority == "Low" %}
+                    <span class="badge bg-info p-2">Low</span>
+                  {% elif list.task_priority == "Medium" %}
+                    <span class="badge bg-warning p-2">Medium</span>
+                  {% elif list.task_priority == "High" %}
+                    <span class="badge bg-danger p-2">High</span>
+                  {% else %}
+                    <span class="badge bg-danger p-2">Urgent 🔥 </span>
+                  {% endif %}
+                </td>
+              <td>{{list.task_status}}</td>
+              <td>{{list.due_date}}</td>
+              <td>
+                <div class="dropdown">
+                  <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Select Option
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'editTask' pk=list.task_id %}"><i class="bi bi-pencil-square"></i> Edit</a>
+                    <a class="dropdown-item" href="{% url 'viewTask' pk=list.task_id %}"><i class="bi bi-eye"></i> View</a>
+                    <a class="dropdown-item" href="{% url 'deleteTask' pk=list.task_id %}"><i class="bi bi-trash"></i> Delete</a>
+                  </div>
+                </div>
+            </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- End Table with stripped rows -->
+
+      </div>
+    </div>
+    <div class="text-end ">
+      <a href={% url 'dashboard' %} class="btn btn-outline-warning">Back</a>
+      <a href={% url 'dashboard' %} class="btn btn-outline-primary">Dashboard</a>
+
+    </div>
+
+</main>
+
+<script>
+  setTimeout(function () {
+    var alert = document.getElementById('custom-alert');
+    if (alert) {
+      alert.classList.remove('show');
+      alert.classList.add('hide');
+  
+      setTimeout(function () {
+        alert.remove();
+      }, 300); // give some time for fade out
+    }
+  }, 5000);
+</script>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  <title>Microfit | User List</title>
+{% endblock %}
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Add User</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href={% url 'dashboard' %}>Mange admin</a></li>
+        <li class="breadcrumb-item">User Management</li>
+        <li class="breadcrumb-item">User List</li>
+        <li class="breadcrumb-item active">Add User</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">User Information</h5>
+
+        <!-- Multi Columns Form -->
+        {{ form.media }}
+        <form class="row g-3" method="post">
+         {% csrf_token %}
+          <div class="col-md-12">
+            <label for="branchname" class="form-label">Task Name</label>
+            {{form.task_name}}
+            {{form.task_name.errors}}
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Description</label><br>
+            {{form.description}}
+            {{form.description.errors}}
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Assigned to</label>
+            {{form.assigned_to}}
+            {{form.assigned_to.errors}}
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Task Priority</label>
+            {{form.task_priority}}
+            {{form.task_priority.errors}}
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Status</label>
+            {{form.task_status}}
+            {{form.task_status.errors}}
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Deadline</label>
+            {{form.due_date}}
+            {{form.due_date.errors}}
+          </div>
+          <div class="col-md-12">
+            <label for="phone1" class="form-label">Document</label>
+            {{form.document_upload}}
+            {{form.document_upload.errors}}
+
+          </div>
+          
+          <div class="text-left">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form><!-- End Multi Columns Form -->
+      </div>
+    </div>
+    <div class="text-end ">
+      <a href={% url 'dashboard' %} class="btn btn-outline-warning">Back</a>
+      <a href={% url 'dashboard' %} class="btn btn-outline-primary">Dashboard</a>
+
+    </div>
+    
+</main>
+{% endblock %}
+
